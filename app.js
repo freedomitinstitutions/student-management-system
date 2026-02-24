@@ -36,7 +36,8 @@ function login(){
       email:email.value,
       password:password.value
     })
-  }).then(res=>res.json())
+  })
+  .then(res=>res.json())
   .then(data=>{
     if(data.status==="success"){
       localStorage.setItem("user", email.value);
