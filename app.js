@@ -11,9 +11,20 @@ function register(){
       email:email.value,
       password:password.value
     })
-  }).then(res=>res.json())
+  })
+  .then(res=>res.json())
   .then(data=>{
-    msg.innerText = data.status==="success" ? "Registration Successful" : "Email already exists";
+    if(data.status==="success"){
+      
+      // Save email to localStorage
+      localStorage.setItem("user", email.value);
+      
+      // Redirect to dashboard
+      window.location = "dashboard.html";
+
+    } else {
+      msg.innerText="Email already exists";
+    }
   });
 }
 
