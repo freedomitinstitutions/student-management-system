@@ -1,4 +1,4 @@
-const API = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+const API = "https://script.google.com/macros/s/AKfycbxLEED3bXq7Evw6PNYZJPW5HtikOrDD9APPt70c5pNCMTgd2op7LOhkyTDjq1hCUkID/exec";
 
 document.addEventListener("DOMContentLoaded", function(){
 
