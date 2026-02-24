@@ -1,65 +1,59 @@
-const API = "https://script.google.com/macros/s/AKfycbxnTnZE3CFs4MLIsoVEFP6KPWqsgBB3P7JZ-KyryJf85ESHFTdqtW5YC4eQK3KqhJp6/exec";
+const API = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+document.addEventListener("DOMContentLoaded", function(){
+
+  const registerBtn = document.getElementById("registerBtn");
+
+  if(registerBtn){
+    registerBtn.addEventListener("click", function(){
+      register();
+    });
+  }
+
+});
 
 function register(){
-  alert("Register button clicked");
-}
 
-function login(){
+  alert("Button Working"); // <-- Test alert
+
+  const name = document.getElementById("name").value;
+  const roll = document.getElementById("roll").value;
+  const regno = document.getElementById("regno").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  if(!name || !roll || !regno || !email || !password){
+    alert("Please fill all fields");
+    return;
+  }
+
   fetch(API,{
     method:"POST",
+    headers:{
+      "Content-Type":"application/json"
+    },
     body: JSON.stringify({
-      action:"login",
-      email:email.value,
-      password:password.value
+      action:"register",
+      name:name,
+      roll:roll,
+      regno:regno,
+      email:email,
+      password:password
     })
   })
   .then(res=>res.json())
   .then(data=>{
+    console.log(data);
+
     if(data.status==="success"){
-      localStorage.setItem("user", email.value);
+      localStorage.setItem("user", email);
       window.location="dashboard.html";
-    } else {
-      msg.innerText="Invalid Login";
+    }else{
+      alert("Email already exists");
     }
+  })
+  .catch(error=>{
+    console.error(error);
+    alert("API Connection Error");
   });
-}
-
-function loadProfile(){
-  const email = localStorage.getItem("user");
-  fetch(API,{
-    method:"POST",
-    body: JSON.stringify({action:"profile", email:email})
-  }).then(res=>res.json())
-  .then(data=>{
-    const u = data.user;
-    name.innerText=u[1];
-    roll.innerText=u[2];
-    regno.innerText=u[3];
-    emailDisplay.innerText=u[4];
-    total.innerText=u[11];
-    profile.src=u[6] || "https://via.placeholder.com/150";
-  });
-}
-
-function loadRanking(){
-  fetch(API,{
-    method:"POST",
-    body: JSON.stringify({action:"ranking"})
-  }).then(res=>res.json())
-  .then(data=>{
-    const tbody=document.querySelector("#rankTable tbody");
-    data.ranking.forEach((r,i)=>{
-      tbody.innerHTML+=`<tr>
-        <td>${i+1}</td>
-        <td>${r[1]}</td>
-        <td>${r[4]}</td>
-        <td>${r[11]}</td>
-      </tr>`;
-    });
-  });
-}
-
-function logout(){
-  localStorage.removeItem("user");
-  window.location="index.html";
 }
