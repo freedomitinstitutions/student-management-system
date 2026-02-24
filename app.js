@@ -1,41 +1,7 @@
 const API = "https://script.google.com/macros/s/AKfycbxnTnZE3CFs4MLIsoVEFP6KPWqsgBB3P7JZ-KyryJf85ESHFTdqtW5YC4eQK3KqhJp6/exec";
 
 function register(){
-
-  if(!name.value || !roll.value || !regno.value || !email.value || !password.value){
-    alert("Please fill all fields");
-    return;
-  }
-
-  fetch(API,{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json"
-    },
-    body: JSON.stringify({
-      action:"register",
-      name:name.value,
-      roll:roll.value,
-      regno:regno.value,
-      email:email.value,
-      password:password.value
-    })
-  })
-  .then(res=>res.json())
-  .then(data=>{
-    console.log(data);
-
-    if(data.status==="success"){
-      localStorage.setItem("user", email.value);
-      window.location="dashboard.html";
-    }else{
-      alert("Email already exists");
-    }
-  })
-  .catch(error=>{
-    console.error("Error:", error);
-    alert("Connection error. Check API URL.");
-  });
+  alert("Register button clicked");
 }
 
 function login(){
