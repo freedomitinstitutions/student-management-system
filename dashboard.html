@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body onload="loadProfile()">
+<div class="container">
+  <div class="profile-card">
+    <img id="profile" src="https://via.placeholder.com/150">
+    <div>
+      <h2 id="name"></h2>
+      <p>Roll: <span id="roll"></span></p>
+      <p>Registration: <span id="regno"></span></p>
+      <p>Email: <span id="emailDisplay"></span></p>
+      <h3>Total Points: <span id="total"></span></h3>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
