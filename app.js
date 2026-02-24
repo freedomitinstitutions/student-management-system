@@ -1,8 +1,17 @@
 const API = "https://script.google.com/macros/s/AKfycbxnTnZE3CFs4MLIsoVEFP6KPWqsgBB3P7JZ-KyryJf85ESHFTdqtW5YC4eQK3KqhJp6/exec";
 
 function register(){
+
+  if(!name.value || !roll.value || !regno.value || !email.value || !password.value){
+    alert("Please fill all fields");
+    return;
+  }
+
   fetch(API,{
     method:"POST",
+    headers:{
+      "Content-Type":"application/json"
+    },
     body: JSON.stringify({
       action:"register",
       name:name.value,
@@ -14,17 +23,18 @@ function register(){
   })
   .then(res=>res.json())
   .then(data=>{
-    if(data.status==="success"){
-      
-      // Save email to localStorage
-      localStorage.setItem("user", email.value);
-      
-      // Redirect to dashboard
-      window.location = "dashboard.html";
+    console.log(data);
 
-    } else {
-      msg.innerText="Email already exists";
+    if(data.status==="success"){
+      localStorage.setItem("user", email.value);
+      window.location="dashboard.html";
+    }else{
+      alert("Email already exists");
     }
+  })
+  .catch(error=>{
+    console.error("Error:", error);
+    alert("Connection error. Check API URL.");
   });
 }
 
